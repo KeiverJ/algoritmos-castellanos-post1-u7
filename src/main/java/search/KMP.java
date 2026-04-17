@@ -8,7 +8,11 @@ import java.util.List;
  * failure[j] = longitud del prefijo propio mas largo de pattern[0..j]
  * que tambien es sufijo.
  */
-public class KMP {
+public final class KMP {
+
+    private KMP() {
+        // Utility class
+    }
 
     /** Construye la funcion de fallo en O(m). */
     public static int[] buildFailure(String pattern) {

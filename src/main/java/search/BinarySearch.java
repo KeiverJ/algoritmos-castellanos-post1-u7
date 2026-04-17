@@ -7,7 +7,11 @@ import java.util.function.LongPredicate;
  * Invariante lowerBound: arr[result] >= key para todo result en [0, n].
  * Invariante upperBound: arr[result] > key para todo result en [0, n].
  */
-public class BinarySearch {
+public final class BinarySearch {
+
+    private BinarySearch() {
+        // Utility class
+    }
 
     /**
      * Retorna el indice del primer elemento >= key.
