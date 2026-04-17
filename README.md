@@ -65,27 +65,26 @@ Notas de consistencia respecto al PDF:
 
 ## Benchmark JMH
 
-Comando ejecutado para obtener resultados empiricos en este entorno:
+Comando ejecutado para obtener resultados empiricos reales en este entorno:
 
 ```bash
-mvn -DskipTests org.codehaus.mojo:exec-maven-plugin:3.5.0:java "-Dexec.mainClass=org.openjdk.jmh.Main" "-Dexec.args=search.SearchBenchmark -wi 1 -i 1 -f 0 -r 200ms -w 200ms"
+java -jar target/benchmarks.jar search.SearchBenchmark -wi 3 -i 5 -f 1 -r 1s -w 1s -rf csv -rff target/jmh-real.csv
 ```
-
-Se usa `-f 0` para evitar error de classpath del fork de JMH en esta configuracion local.
 
 ### Resultados (Average Time, us/op)
 
 | Algoritmo      | n=10000 | n=100000 | n=1000000 |
 |----------------|--------:|---------:|----------:|
-| linearSearch   | 1.412   | 14.922   | 143.326   |
-| binarySearch   | 0.015   | 0.019    | 0.023     |
-| kmpSearch      | 41.617  | 410.980  | 4125.553  |
+| linearSearch   | 1.630   | 15.037   | 142.921   |
+| binarySearch   | 0.015   | 0.019    | 0.024     |
+| kmpSearch      | 51.982  | 476.515  | 4530.748  |
 
 ### Analisis breve
 
 - `binarySearch` escala logaritmicamente y se mantiene casi constante al crecer `n`.
 - `linearSearch` crece aproximadamente lineal con `n`.
 - `kmpSearch` tambien crece lineal en este experimento porque el texto aumenta y el patron no aparece.
+- Esta corrida usa 1 fork real, 3 iteraciones de warmup y 5 de medicion; los resultados son mas estables que una corrida rapida de depuracion.
 
 ## Capturas
 
